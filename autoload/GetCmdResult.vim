@@ -17,12 +17,12 @@ function! s:getCmdResult(cmd)
     redir => l:var
     call s:silentExecute(a:cmd)
     redir end
-    return matchstr(l:var, '\n\zs\(.\|\n\)*\ze$')
+    return l:var =~? '^\n' ? l:var[1:-1] : l:var
 endfunction
 
 
 function! s:silentExecute(cmd)
-    execute 'silent ' . a:cmd
+    silent execute a:cmd
 endfunction
 
 
